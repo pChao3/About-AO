@@ -3,11 +3,7 @@ import PageMetaTags from '@/containers/PageMetaTags';
 function Design() {
   return (
     <>
-      <PageMetaTags
-        title="Start Designing"
-        description={'Meta description here'}
-        url="/start-designing"
-      />
+      <PageMetaTags title="Others" description={'others...'} url="/others" />
       <div className="grid place-items-center w-full bg-slate-100 pt-6 pb-48">
         <div className="max-w-6xl w-full  md:px-12 px-4 text-left flex-col ">
           <h1 className="text-2xl  leading-10 font-bold">Others</h1>
