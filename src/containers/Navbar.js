@@ -6,10 +6,12 @@ import { useEffect, useState } from 'react';
 import MoonIcon from '@heroicons/react/24/outline/MoonIcon';
 import SunIcon from '@heroicons/react/24/outline/SunIcon';
 import NavProfileLinks from './NavProfileLinks';
+import JsonImportModal from '@/components/common/JsonImportModal';
 
 function Navbar() {
   // const [currentTheme, setCurrentTheme] = useState(localStorage.getItem("theme"))
   const [currentTheme, setCurrentTheme] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const logoutUser = () => {};
 
@@ -78,9 +80,12 @@ function Navbar() {
                 </ul>
             </div> */}
         </div>
-        <div className="navbar-end hidden lg:flex">
+        <JsonImportModal isOpen={open} onClose={() => setOpen(false)} />
+        <button onClick={() => setOpen(true)}>导入</button>
+
+        {/* <div className="navbar-end hidden lg:flex">
           <NavProfileLinks />
-        </div>
+        </div> */}
       </div>
     </div>
   );

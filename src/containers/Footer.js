@@ -66,7 +66,7 @@ function Footer() {
       </div>
       <div className="p-4 flex justify-center bg-secondary">
         <div className="max-w-5xl text-slate-50">
-          <p>Copyright © 2023 - All right reserved</p>
+          <p>Copyright © 2024 - All right reserved</p>
         </div>
       </div>
     </div>
