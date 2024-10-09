@@ -55,6 +55,7 @@ export default function Page() {
 
   return (
     <InnerPageContainer title="All Acounts Balances Info">
+      <PageMetaTags title="Balances" description={'balances page'} url="/balances" />
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
