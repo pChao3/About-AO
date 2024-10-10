@@ -38,7 +38,7 @@ export default function Layout({ children }) {
         <meta name="author" content="" />
         <meta property="og:image" content="/cover-pic.png" />
         <meta name="image" content="/cover-pic.png" />
-        <link rel="icon" href="/favicon-32x32.png" />
+        <link rel="icon" href="/logo.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#3b82f6" />
