@@ -10,21 +10,21 @@ export default function Page() {
   const [loading, setLoading] = useState(true); // 初始状态设为加载中
 
   useEffect(() => {
-    const init = async () => {
-      const accounts = JSON.parse(localStorage.getItem('accountsInfo')) || [];
-      const data = await Promise.all(
-        accounts.map(async account => {
-          const infos = await getBalances(account.address);
-          return { userAddress: account.address, tokensInfo: infos };
-        })
-      );
-      console.log('data', data);
-      setTableData(data);
-      setLoading(false);
-    };
     init();
   }, []);
 
+  const init = async () => {
+    const accounts = JSON.parse(localStorage.getItem('accountsInfo')) || [];
+    const data = await Promise.all(
+      accounts.map(async account => {
+        const infos = await getBalances(account.address);
+        return { userAddress: account.address, tokensInfo: infos };
+      })
+    );
+    console.log('data', data);
+    setTableData(data);
+    setLoading(false);
+  };
   const getBalances = async walletAddress => {
     const tokenBalances = await Promise.all(
       TokenAddress.map(async token => {
@@ -51,6 +51,13 @@ export default function Page() {
       })
     );
     return tokenBalances;
+  };
+
+  const deleteAccount = address => {
+    const allAccounts = JSON.parse(localStorage.getItem('accountsInfo'));
+    const data = allAccounts.filter(i => i.address !== address);
+    localStorage.setItem('accountsInfo', JSON.stringify(data));
+    init();
   };
 
   return (
@@ -85,6 +92,11 @@ export default function Page() {
                       {(j.balances / 10 ** j.decimals).toFixed(j.decimals == 0 ? 0 : 5)} {j.symbol}
                     </th>
                   ))}
+                  <th>
+                    <button className="btn" onClick={() => deleteAccount(i.userAddress)}>
+                      delete
+                    </button>
+                  </th>
                 </tr>
               ))
             )}
