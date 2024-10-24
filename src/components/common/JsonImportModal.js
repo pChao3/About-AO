@@ -60,6 +60,7 @@ const JsonImportModal = ({ isOpen, onClose }) => {
       alert('数据已成功导入！');
       setJsonData('');
       onClose(); // 关闭弹出框
+      location.reload();
     } catch (error) {
       alert('无效的 JSON 数据，请检查后重试。');
     }
