@@ -1,28 +1,23 @@
-// scripts/yourScript.js
 const { message, createDataItemSigner, result, spawn, dryrun } = require('@permaweb/aoconnect');
-
-const key = process.argv[2];
-const methodName = process.argv[3];
-const name = process.argv[4];
 
 const llamaCoin = 'pazXumQI-HPH7iFGfTC-4_7biSnqz_U67oFAGry5zUY';
 const llamaWaitList = '2dFSGGlc5xJb0sWinAnEFHM-62tQEbhDzi1v5ldWX5k';
 const llamaKing = 'ptvbacSmqJPfgCXxPc9bcobs5Th2B_SxTf81vRNkRzk'; // llama King
 
-const login = async () => {
+export const login = async key => {
   try {
     await message({
       process: llamaWaitList,
       tags: [{ name: 'Action', value: 'Tracking-Login' }],
-      signer: createDataItemSigner(JSON.parse(key)),
+      signer: createDataItemSigner(key),
     });
   } catch (error) {
     console.log('error', error);
   }
-  console.log(`success`);
+  return 'success!';
 };
 
-const pettion = async () => {
+export const pettion = async (key, name) => {
   for (let i = 0; i < 3; i++) {
     const msgId = await message({
       process: llamaCoin,
@@ -37,15 +32,8 @@ const pettion = async () => {
         },
         { name: 'X-Sender-Name', value: name },
       ],
-      signer: createDataItemSigner(JSON.parse(key)),
+      signer: createDataItemSigner(key),
     });
   }
-  console.log(`success`);
+  return 'success!';
 };
-
-if (methodName === 'login') {
-  login();
-} else if (methodName === 'pettion') {
-  pettion();
-} else {
-}
