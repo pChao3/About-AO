@@ -41,6 +41,18 @@ export default function Page() {
     );
     setTableData(data);
     setLoading(false);
+
+    // 从 localStorage 获取目标时间并计算剩余时间
+    const targetLoginTime = JSON.parse(localStorage.getItem('targetLoginTime')) || 0;
+    const targetPettionTime = JSON.parse(localStorage.getItem('targetPettionTime')) || 0;
+    const currentTime = Date.now();
+
+    // 计算剩余时间
+    const remainingLoginTime = targetLoginTime - currentTime;
+    const remainingPettionTime = targetPettionTime - currentTime;
+
+    setLoginTime(remainingLoginTime > 0 ? remainingLoginTime : 0);
+    setPettionTime(remainingPettionTime > 0 ? remainingPettionTime : 0);
   };
   const getBalances = async walletAddress => {
     const tokenBalances = await Promise.all(
@@ -93,9 +105,14 @@ export default function Page() {
         const data = await fetchAO(params);
         setOutput(`执行结果: ${data.message}`);
       }
+      const currentTime = Date.now();
       if (action === 'login') {
+        const targetTime = currentTime + 86400000; // 设置目标时间为当前时间加一天
+        localStorage.setItem('targetLoginTime', JSON.stringify(targetTime));
         setLoginTime(86400000); // 设置冷却时间为24小时
       } else {
+        const targetTime = currentTime + 86400000; // 设置目标时间为当前时间加一天
+        localStorage.setItem('targetPettionTime', JSON.stringify(targetTime));
         setPettionTime(86400000); // 设置冷却时间为24小时
       }
     } catch (error) {
@@ -108,6 +125,9 @@ export default function Page() {
   const clearTime = () => {
     setLoginTime(0);
     setPettionTime(0);
+    // 清空 localStorage 中的目标时间
+    localStorage.removeItem('targetLoginTime');
+    localStorage.removeItem('targetPettionTime');
   };
   // 格式化时间为时分秒
   const formatTime = milliseconds => {
